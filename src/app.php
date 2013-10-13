@@ -14,6 +14,19 @@ $app->register(new TwigServiceProvider(), array(
     'twig.path'    => array(__DIR__.'/../templates'),
     'twig.options' => array('cache' => __DIR__.'/../cache/twig'),
 ));
+$app->register(new \Silex\Provider\DoctrineServiceProvider(), array(
+    'db.options'    => array(
+        'driver'    => 'pdo_mysql',
+        'host'      => 'localhost',
+        'user'      => 'root',
+        'dbname'    => 'event_demo'
+    ),
+    'db.dbal.class_path'    => __DIR__.'/../vendor/doctrine-dbal/lib',
+    'db.common.class_path'  => __DIR__.'/../vendor/doctrine-common/lib',
+));
+
+
+
 $app['twig'] = $app->share($app->extend('twig', function($twig, $app) {
     // add custom globals, filters, tags, ...
 

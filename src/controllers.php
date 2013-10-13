@@ -12,6 +12,31 @@ $app->get('/', function () use ($app) {
 ->bind('homepage')
 ;
 
+$app->get('/api/events', function (Request $r) use ($app){
+    $query = "SELECT * FROM event";
+    
+    
+    $events = $app['db']->fetchAll($query);
+    
+    return new Response(json_encode($events),200,array(
+        'Content-Type' => 'application/json'
+    ));
+});
+
+$app->get('/event', function (Request $r) use ($app){
+    if(!$data = $r->get('event')){
+        return new Response('Missing Parameters.',400);
+    }
+    
+    
+    
+    return new Response(json_encode($events),200,array(
+        'Content-Type' => 'application/json'
+    ));
+});
+
+
+
 $app->error(function (\Exception $e, $code) use ($app) {
     if ($app['debug']) {
         return;
